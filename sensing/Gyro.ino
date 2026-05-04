@@ -2,10 +2,8 @@
 #include <SPI.h>
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
-#include "Adafruit_VL6180X.h"
 #include <math.h>
 
-Adafruit_VL6180X vl = Adafruit_VL6180X();
 Adafruit_MPU6050 mpu;
 
 // Filter variables
@@ -105,14 +103,6 @@ void setup(void)
   // Start the timer
   timer = millis();
 
-  Serial.println("Adafruit VL6180x test!");
-  if (! vl.begin()) {
-    Serial.println("Failed to find sensor");
-    while (1);
-  }
-  Serial.println("Sensor found!");
-}
-
 void loop() {
   // --- 1. Calculate Delta-Time (dt) ---
   // Find the time elapsed since the last loop in seconds
@@ -164,18 +154,4 @@ void loop() {
   Serial.print("\t Yaw: ");
   Serial.print(angleYaw, 2);
   Serial.println();
-  
-  // A small delay so we don't flood the serial monitor
-  // The filter itself works better with no delay,
-  // but for printing, this is helpful.
-  delay(10); 
-
-  float lux = vl.readLux(VL6180X_ALS_GAIN_5);
-
-  Serial.print("Lux: "); Serial.println(lux);
-  
-  uint8_t range = vl.readRange();
-  uint8_t status = vl.readRangeStatus();
-
-  Serial.print("Range: "); Serial.println(range);
 }
