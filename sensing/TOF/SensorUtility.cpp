@@ -24,7 +24,7 @@ void initSensors(VL53L4CX &s1, VL53L4CX &s2, int p1, int p2)
   s2.VL53L4CX_SetDeviceAddress(0x54);
 }
 
-void processSensors(VL53L4CX &sensor, const *char sensorName)
+void processSensors(VL53L4CX &sensor)
 {
   uint8_t ready = 0;
   if (sensor.VL53L4CX_GetMeasurementDataReady(&ready) == 0 && ready != 0)
